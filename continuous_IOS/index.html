@@ -1,0 +1,34 @@
+<!-- Sets up templates for the actual "slides" and forms that are 
+supposed to be shown at each stage of the experiment. -->
+
+<html>
+<head>
+  <title>Start page</title>
+<script src="https://www.stanford.edu/~dco/common/jquery.min.js"></script>
+<script src="https://www.stanford.edu/~dco/common/mmturkey.0.5.js?nowarn"></script>
+<link rel="stylesheet" href="https://www.stanford.edu/~dco/common/style.css" />
+</head>
+<body>
+
+<div class="slide" id="iOSSlide">
+    <center>
+        <p id="question"> 
+            How close do you feel with Bob? Please use the following slider to adjust the circles until they best describe how close you feel:
+        </p>
+    </center>
+    <div id="iOSDiv" style="height:350px; width:500; margin-left: auto;
+    margin-right: auto;"> </div>
+
+    <center>
+    <button type="button" id="next" onclick="this.blur(); experiment.afterIOS();">Next</button>
+    </center>
+</div>
+
+<div class="slide" id="finished">
+  You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+
+<script src="https://www.stanford.edu/~dco/common/raphael.js" type="text/javascript"></script>
+<script src="experiment.js"></script>
+</body>
+</html>
