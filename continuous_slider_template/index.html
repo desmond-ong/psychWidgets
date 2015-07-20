@@ -1,0 +1,129 @@
+<!-- Sets up templates for the actual "slides" and forms that are 
+supposed to be shown at each stage of the experiment. -->
+
+<html>
+<head>
+  <title>Start page</title>
+<link rel="stylesheet" href="https://www.stanford.edu/~dco/common/jquery-ui.css">
+<script src="https://www.stanford.edu/~dco/common/jquery.min.js"></script>
+<script src="https://www.stanford.edu/~dco/common/jquery-ui.js"></script>
+<script src="https://www.stanford.edu/~dco/common/mmturkey.0.5.js?nowarn"></script>
+<link rel="stylesheet" href="https://www.stanford.edu/~dco/common/style.css">
+
+<style type="text/css">
+.slide, #instructions, #wheel {
+    min-width: 1000px;
+}
+
+.sliderClass { 
+    width: 400px;
+    height: 12px;
+    position: relative;
+    margin: 10px; 
+}
+
+</style>
+</head>
+
+<body>
+    <div class="progress" id="progressBar">
+    	<div class="bar-wrapper">
+    	  <div class="bar"></div>
+    	</div>
+    	<p>Progress bar: <span id="trial-num">{{}}</span><span>/</span><span id="total-num">{{}}</span></p>
+    </div>
+<script LANGUAGE="JavaScript">
+
+
+function checkPreview() {
+    if (turk.previewMode) {
+        alert ("Please accept this HIT to see more questions.");
+        return false;
+    }
+    return true;
+}
+
+function ValidateSliderForm() {
+    if ($('#hiddenSliderValue0').val() == "") {
+        alert ( "Please answer all the questions." );
+        return false;
+      } else {
+        return true;
+      }
+}
+
+</script>
+
+
+<div class="slide" id="description">
+    
+    <p id='logo-text'>Instructions</p>
+    <p class="block-text"> In this study, we are interested in X </p>
+    <br>
+    <p class="block-text"> X </p>
+    
+        <div id="form">
+        <button type="button" onclick="this.blur(); experiment.next();">Next</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="slide" id="stage">
+    <p id="question"> How happy do you feel? </p>
+
+    <div id="response">
+
+        <table width="650" cellspacing="0" cellpadding="0" border="0" align="center">
+            <tr>
+                <td width="100" align="center"><span class="affect" id="affect0"> Happy </span></td>
+                <td align="center" colspan="3">
+                    <div class="sliderClass" id="slider0">&nbsp;</div>
+                    <input type="hidden" name="hSlider0" id="hiddenSliderValue0" />
+                </td>
+            </tr> 
+            <tr>
+                <td width="20" valign="top" align="center"><br></td>
+                <td width="100" valign="top" align="center">|<br>Not at all</td>
+                <td width="200" valign="top" align="center"><br></td>
+                <td width="100" valign="top" align="center">|<br>Extremely</td>
+          </tr>
+        </table>
+
+        <br><br><br>
+
+        <center>
+        <div id="form">
+            <button type="button" onclick="this.blur(); if(ValidateSliderForm()) {experiment.next();}">Next</button>
+        </div>
+        </center>
+    </div>
+</div>
+
+
+
+
+<div class="slide" id="askInfo">
+    <div id="form">
+        <p id="block-text"> Thank you for doing this HIT! </p>
+        
+        <form name="comments">
+        <br>
+        <br>
+        
+        <span id="infoQ"> (Optional) Please leave any comments or suggestions regarding this HIT:</span></br>
+        <textarea name="commentsTextArea" ROWS=10 COLS=50></textarea>
+        </br>
+        </form>
+        <button type="button" onclick="this.blur(); experiment.end();">Submit</button>
+    </div>
+</div>
+
+<div class="slide" id="finished">
+  You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+
+
+<script src="experiment.js"></script>
+</body>
+</html>
