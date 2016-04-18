@@ -2,7 +2,7 @@
 
 This continuous slider was modified by Erin Bennett and Justine Kao, among others, with light edits by myself. The base code is jquery ui: https://jqueryui.com/slider/
 
-This Widget is a continuous animted slider.
+This Widget is a continuous animated slider.
 
 Demo: http://rawgit.com/desmond-ong/psychWidgets/master/continuous_slider_template/index.html
 
@@ -30,11 +30,12 @@ There is a HTML component, a Javascript component, and a CSS component (which I'
 - Lastly there's some CSS in lines 18-23 of the HTML file just to make things look pretty when fit into the table. I've also modified the jquery-ui.css file slightly, but it shouldn't make a difference even if you use the code from the jquery website.
 
 
-So if you want to add more sliders, make sure you do:
-1) create a div, and a hidden "input" object
-2) update the validation script in the HTML (HTML lines 46-53)
-3) copy and paste the slider setup code for each slider (JS lines 96-115)
-4) copy and paste the "recording variables" and "resetting variables" code (JS lines 119-122)
+So if you want to add more sliders, make sure you do the following:
+
+- 1) create a div, and a hidden "input" object
+- 2) update the validation script in the HTML (HTML lines 46-53)
+- 3) copy and paste the slider setup code for each slider (JS lines 96-115)
+- 4) copy and paste the "recording variables" and "resetting variables" code (JS lines 119-122)
 
 
 ## Notes
