@@ -1,0 +1,43 @@
+<!-- Sets up templates for the actual "slides" and forms that are 
+supposed to be shown at each stage of the experiment. -->
+
+<html>
+<head>
+  <title>Start page</title>
+<script src="https://rawgit.com/desmond-ong/common/master/js/jquery.min.js"></script>
+<script src="https://rawgit.com/desmond-ong/common/master/js/mmturkey.0.5.js?nowarn"></script>
+<link rel="stylesheet" href="https://rawgit.com/desmond-ong/common/master/css/style.css" />
+</head>
+<body>
+
+<div class="slide" id="stage">
+    <center>
+        <p id="question"> 
+            We would like you to watch the following video, and rate using the slider, how the person in the video is feeling at every moment in time. 
+            <br>
+            The left end of the slider indicates "Negative", and the right end of the slider indicates "Positive".
+            <br>
+            Please use the slider continuously throughout the video by clicking on the slider handle and moving it around.
+        </p>
+    </center>
+
+    <center>
+    <video height="432" id="videoElement" preload="" width="576" src="videos/CMJustIn.mp4"></video>
+    </center>
+    <center>
+    <div id="happySliderDiv" style="height:250px; width:700px">&nbsp;</div>
+    </center>
+
+    <center>
+    <button type="button" id="nextButton" onclick="this.blur(); experiment.afterEA();">Next</button>
+    </center>
+</div>
+
+<div class="slide" id="finished">
+  You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+
+<script src="https://rawgit.com/desmond-ong/common/master/js/raphael.js" type="text/javascript"></script>
+<script src="experiment.js"></script>
+</body>
+</html>
