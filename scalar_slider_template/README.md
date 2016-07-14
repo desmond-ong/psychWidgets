@@ -1,10 +1,10 @@
-# Continuous Slider template
+# Scalar Slider template
 
-This continuous slider was modified by Erin Bennett and Justine Kao, among others, with light edits by myself. The base code is jquery ui: https://jqueryui.com/slider/
+This sclar (continuous, 100 point) slider was modified by Erin Bennett and Justine Kao, among others, with light edits by myself. The base code is jquery ui: https://jqueryui.com/slider/
 
 This Widget is a continuous animated slider.
 
-Demo: http://rawgit.com/desmond-ong/psychWidgets/master/continuous_slider_template/index.html
+Demo: http://rawgit.com/desmond-ong/psychWidgets/master/scalar_slider_template/index.html
 
 Send feedback to desmond (dot) ong (at) stanford (dot) edu. and let me know if you do end up using this widget! 
 
