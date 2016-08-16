@@ -26,6 +26,12 @@ In the Javascript,
 
 I also have a version that can be incorporated into a Qualtrics survey. Email me if you would like to know how.
 
+## Matlab version
+
+I've also included a Matlab version (rateVideo.m) that's a working skeleton of one of my existing experiments. Do let me know if you have any problems getting this to work on your system. This requires Matlab, Psychtoolbox, and any other dependencies you may need to play multimedia (e.g. gstreamer on Windows). 
+
+Also, I wrote this using a Mac and have gotten it to work (with some modifications) on Windows. If you're running Windows, do note that Matlab has a lot of annoying cross-platform differences, so if your problem is due to e.g. PCs using \ and Macs using /, please try to fix that yourself. Those should be the only differences. [You should also try some of the demos at: http://psychtoolbox.org/]
+
 
 
 ## References and Acknowledgements
