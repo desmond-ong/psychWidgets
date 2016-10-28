@@ -83,10 +83,9 @@ Then, on the question in Qualtrics, click the little wheel on the left right bel
         - These three variables are all at the start of the JS chunk.
     - the first argument to the `Qualtrics.SurveyEngine.setEmbeddedData` commands at the bottom. 
         - For example, if this is the second movie, you’ll need to change 'movie1_name' to 'movie2_name', and so forth.
-    - I left the number on the scale as a label on the slider handle for troubleshooting purposes (e.g., it starts at 0, and the number goes negative as you drag it to the left, and positive if you drag it to the right). If you wish to remove the label on the slider handle, comment out the following 3 lines by adding `//` to the front of them.
-        - `// sliderText=paper.text((slider.PathPointOne.x + slider.PathPointTwo.x)/2,slider.PathPointOne.y,initialValue ).attr({fill:'#FFF', 'font-size':16, 'stroke-width':0 });`
-        - `// slider.push(sliderText);`
-        - `// sliderText.attr({text:slider.currentValue-50,x: slider.PathPointOne.x, y: slider.PathPointOne.y});`
+    - I left the number on the scale as a label on the slider handle for troubleshooting purposes (e.g., it starts at 0, and the number goes negative as you drag it to the left, and positive if you drag it to the right). If you wish to remove the label on the slider handle, change the variable in following line from `true` to `false`
+        - with label: `var addLabel = true;`
+        - without label: `var addLabel = false;`
 ` 
 
 ```
@@ -100,63 +99,73 @@ Qualtrics.SurveyEngine.addOnload(function()
   var current_valence_vector = [];
   var current_time_vector = [];
   
-  function mySliderFunction(paper, x1, y1, pathString, colour, pathWidth) {
-    var slider = paper.set();
-    var sliderOut=function(pcOut){ if(sliderOutput){ sliderOutput(pcOut); } };
-    var position=0;
-    slider.currentValue=0;
-    slider.push(paper.path("M"+x1+" "+y1+pathString)).attr( {stroke:colour,"stroke-width": pathWidth } );
-    slider.PathLength   = slider[0].getTotalLength();
-    initialValue = 0;
-    slider.PathPointOne   = slider[0].getPointAtLength(position);
-    slider.PathPointTwo   = slider[0].getPointAtLength(slider.PathLength);
-    slider.PathBox      = slider[0].getBBox();
-    slider.PathBoxWidth   = slider.PathBox.width;
-    slider.push(paper.circle(slider.PathPointOne.x, slider.PathPointOne.y, pathWidth/2).attr(   {fill:colour, "stroke-width": 0,"stroke-opacity": 0 }) );         
-    slider.push(paper.circle(slider.PathPointTwo.x, slider.PathPointTwo.y, pathWidth/2).attr(   {fill:colour, "stroke-width": 0,"stroke-opacity": 0 }) );
-    /*Slider Button*/
-    sButtonBack=paper.circle((slider.PathPointOne.x + slider.PathPointTwo.x)/2, slider.PathPointOne.y, pathWidth);
-    sButtonBack.attr({ fill: "#777","stroke-width": 1,"fill-opacity": 1, stroke: "#000"  } );
-    sButtonBack.attr({r:(15)});
-    slider.push(sButtonBack);   
-    sliderText=paper.text((slider.PathPointOne.x + slider.PathPointTwo.x)/2,slider.PathPointOne.y,initialValue ).attr({fill:'#FFF', 'font-size':16, 'stroke-width':0 });
-    slider.push(sliderText);
-    sButton=paper.circle((slider.PathPointOne.x + slider.PathPointTwo.x)/2, slider.PathPointOne.y, pathWidth);
-    sButton.attr({    fill: "#777","stroke-width": 1,"fill-opacity": 0.1, stroke: "#000"  } );
-    sButton.attr({r:(15)});
+  function mySliderFunction(paper, inputX, inputY, pathString, colour, pathWidth) {
+    var addLabel = true; // boolean to change if you want the slider to be labeled with the current value.
     
-    var start = function () {
-      this.ox = this.attr("cx");
-    },
+    var slider = paper.set();
+    
+    slider.currentValue = 50; // setting the initial value of the slider
+    slider.push(paper.path("M" + inputX + " " + inputY + pathString)).attr({stroke:colour,"stroke-width": pathWidth});
+    slider.PathLength   = slider[0].getTotalLength();
+
+    slider.PathPointOne = slider[0].getPointAtLength(0); // left edge of slider
+    slider.PathPointTwo = slider[0].getPointAtLength(slider.PathLength);  // right edge of slider; depends on the pathString that's input.
+    slider.PathBox      = slider[0].getBBox();
+    slider.PathBoxWidth = slider.PathBox.width;
+    slider.push(paper.circle(slider.PathPointOne.x, slider.PathPointOne.y, pathWidth/2).attr({fill:colour, "stroke-width": 0,"stroke-opacity": 0})); // left edge
+    slider.push(paper.circle(slider.PathPointTwo.x, slider.PathPointTwo.y, pathWidth/2).attr({fill:colour, "stroke-width": 0,"stroke-opacity": 0})); // right edge
+
+    /*Slider Button*/
+    // creating the "back" of the slider button, sButtonBack
+    //    paper.circle(  x position,   y position,   radius of circle   )
+    //  so the initial x position is in the center of the slider
+    //  the .attr() call is to change the fill color, stroke width, and other graphical attributes
+    slider.sButtonBack = paper.circle(slider.PathPointOne.x + slider.PathLength/2, slider.PathPointOne.y, pathWidth);
+    slider.sButtonBack.attr({fill: "#777","stroke-width": 1,"fill-opacity": 1, stroke: "#000", r:(15)});
+    slider.push(slider.sButtonBack); // drawing sButtonBack on the canvas  
+
+    if(addLabel) {
+    // adding a text label to the slider handle (i.e. number from 0 to 100)
+      sliderText=paper.text((slider.PathPointOne.x + slider.PathPointTwo.x)/2, slider.PathPointOne.y, slider.currentValue ).attr({fill:'#FFF', 'font-size':16, 'stroke-width':0 });
+      slider.push(sliderText);
+    }
+    // similarly creating the slider button itself.
+    slider.sButton = paper.circle(slider.PathPointOne.x + slider.PathLength/2, slider.PathPointOne.y, pathWidth);
+    slider.sButton.attr({fill: "#777","stroke-width": 1,"fill-opacity": 0.1, stroke: "#000", r:(15)} );
+    
+    // We also want to add other attributes/functionality to the sButton
+    var start = function () { this.ox = this.attr("cx"); },
     move = function (dx, dy) {
-        pcAlongLine = (this.ox+dx-x1)/slider.PathBoxWidth;
-        slider.PathPointOne = slider[0].getPointAtLength(pcAlongLine*slider.PathLength);
-      if (!slider.PathPointOne.x) {
-        slider.PathPointOne.x=x1;
-      }
-      if (!slider.PathPointOne.y) {
-        slider.PathPointOne.y=y1;
-      }
-      att = {cx: slider.PathPointOne.x, cy: slider.PathPointOne.y};
-      this.attr(att);sButtonBack.attr(att);
-      if (Math.round(((this.attr("cx")-slider.PathBox.x)/slider.PathBox.width)*100)) {
+      proportionAlongLine = (this.ox + dx - inputX)/slider.PathBoxWidth;
+      // reusing "PathPointOne" to store current point
+      slider.PathPointOne = slider[0].getPointAtLength(proportionAlongLine * slider.PathLength);
+
+      if (!slider.PathPointOne.x) { slider.PathPointOne.x=x1; }
+      if (!slider.PathPointOne.y) { slider.PathPointOne.y=y1; }
+      this.attr({cx: slider.PathPointOne.x, cy: slider.PathPointOne.y}); 
+     slider.sButtonBack.attr({cx: slider.PathPointOne.x, cy: slider.PathPointOne.y});
+
+     // just adding a check so that the "cx" doesnt go beyond the left edge.
+     if (Math.round(((this.attr("cx")-slider.PathBox.x)/slider.PathBox.width)*100)) {
         slider.currentValue=Math.round(((this.attr("cx")-slider.PathBox.x)/slider.PathBox.width)*100);  
       } else {
         slider.currentValue=0;
       }
-      
-      sliderText.attr({text:slider.currentValue-50,x: slider.PathPointOne.x, y: slider.PathPointOne.y});
-      bbox=sliderText.getBBox();
-      sButton.attr({r:(15)});
-      sButtonBack.attr({r:(15)});
-      sliderOut(slider.currentValue);
+      if(addLabel) { // adding an label to the slider handle
+        sliderText.attr({text:slider.currentValue, x: slider.PathPointOne.x, y: slider.PathPointOne.y});
+      }
     },
     up = function () {
       // 
     }; 
-    sButton.drag(move, start, up);
-    slider.push(sButton);                     
-        return slider;
+    // assign the 'move', 'start', and 'up' functions to the slider button
+    //   see raphael.js documentation for more details, but the inputs are:
+    //   1) what to do when element is moved ("mouse move")
+    //   2) what to do on the start of the element being dragged ("mouse start")
+    //   3) what to do when the element is released ("mouse up")
+    slider.sButton.drag(move, start, up);
+    slider.push(slider.sButton); // draw sButton onto the canvas.
+    return slider;
   };
   
 
@@ -208,6 +217,7 @@ Qualtrics.SurveyEngine.addOnload(function()
   goButton = canvas.rect(300,125,100,25,0).attr({fill: "#0f0"});
   goButton.click(function() {
     startTiming();
+    goButton.hide();
   });
   
 });

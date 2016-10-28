@@ -40,6 +40,6 @@ So if you want to add more sliders, make sure you do the following:
 
 ## Notes
 
-mmturkery.js is a javascript file that our lab uses to handle the interfacing with Mechanical Turk. You don't have to worry too much about it.
+mmturkey.js is a javascript file that our lab uses to handle the interfacing with Mechanical Turk. You don't have to worry too much about it.
 
 Note that all the links right now in my code are to my own copies of jquery, jqueri-ui (.js, .css), etc. Do make your own copies if you choose to deploy this widget!
