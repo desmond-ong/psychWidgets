@@ -26,7 +26,8 @@ Default values:
 
 - Slider is 100 points, slider handle starts visible in center (at 50).
 - Slider values are sampled every 500 milliseconds
-- Assumes that the video will be played in a 576 x 432 chunk
+- Assumes that the video will be played at a resolution of 576 x 432
+    - if you want to change this, look for the following code: `<video height="432" id="videoElement" preload="" width="576">` in the HTML portion of the instructions below, and modify the values accordingly
 
 
 ### Nuts and bolts
@@ -65,8 +66,7 @@ In Survey Flow, click "Set Embedded Data"
 
 NOTE: Create a separate Qualtrics question FOR EACH VIDEO. I would also put them in separate blocks.
 
-Create the question that you want (I would recommend 
-"Descriptive Text"). Write your instructions.
+Create the question that you want (I would recommend "Descriptive Text"). Write your instructions.
 
 Then, on the question in Qualtrics, click the little wheel on the left right below the question name, then click "Add Javascript".
 
