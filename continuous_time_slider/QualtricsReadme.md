@@ -1,7 +1,7 @@
 # Instructions for setting up empathic accuracy slider in Qualtrics.
 
 ## Written by Desmond C. Ong, github.com/desmond-ong
-#### last updated October 2016
+#### last updated November 2016
 
 Demo: https://stanforduniversity.qualtrics.com/SE/?SID=SV_2nq4tQBeLrejhDD
 
@@ -32,7 +32,9 @@ Default values:
 
 ### Nuts and bolts
 
-There are 3 steps (+ 1 for getting the data).
+There are 3 steps (+1 for preparation, and +1 for getting the data).
+
+First, 0. Store your videos somewhere that Qualtrics will be able to access
 
 1. Declares the variables (as “embedded data”)
     - This step initializes the data variables that will be stored
@@ -41,11 +43,24 @@ There are 3 steps (+ 1 for getting the data).
 3. Add HTML code to place the video in the question. 
     - This step creates the "video element" div, and loads a few necessary javascript files
     - This is the trickiest part, and you may end up erasing your HTML code when you edit the question in the future.
-4. Downloading the data 
+
+And finally, 4. downloading the data 
 
 
 Note that you need to add at least an empty block IN BETWEEN trials. I haven't really figured out why, but I've found that it's best to just put an empty block that automatically proceeds on if you want continuous trials.
 
+
+#### 0. Storing your videos online
+
+- First, you have to store the videos that you want your participants to watch in a place that Qualtrics can access. One possibility is directly on an institution or lab server, such as 'https://www.myInstitution.edu/~me/myVideos/vid1.mp4'
+- Note: a link to a YouTube video won't work. Note that the URL points directly to the video file, like an .mp4 file.
+- If you wish to use **Google Drive**, you'll need a direct link to the file. 
+    - [This page](http://www.labnol.org/internet/direct-links-for-google-drive/28356/) explains how. First, share your file, and you should get something like:
+        - `https://drive.google.com/file/d/FILE_ID/edit?usp=sharing` 
+    - The exact URL may differ depending on how you're sharing the file, e.g. it might end in `preview` or `view`. This link usually ends up opening the video in some embedded player (e.g. a YouTube or YouTube-like player) in the browser.
+    - Copy the FILE_ID and replace it in the following (new) URL: 
+        - `https://drive.google.com/uc?export=download&id=FILE_ID`
+    - You can now use this new URL (which is a direct link to the file) in the code below.
 
 
 
@@ -92,7 +107,7 @@ Then, on the question in Qualtrics, click the little wheel on the left right bel
 Qualtrics.SurveyEngine.addOnload(function()
 {
   /*Place Your Javascript Below This Line*/
-  var URL_OF_VIDEO = 'https://https://www.myInstitution.edu/~me/myVideos/vid1.mp4';
+  var URL_OF_VIDEO = 'https://www.myInstitution.edu/~me/myVideos/vid1.mp4';
   var NAME_OF_VIDEO = 'this movie';
   var DURATION_OF_VIDEO_IN_MILLISECONDS = 155000 + 500; // in milliseconds. Note the 500 at the end is a buffer
   var TIME_INTERVAL_IN_MILLISECONDS = 500; // default: sample every 500 milliseconds
