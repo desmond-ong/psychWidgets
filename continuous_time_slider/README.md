@@ -33,7 +33,9 @@ I've also included a Matlab version (rateVideo.m) that's a working skeleton of o
 
 Also, I wrote this using a Mac and have gotten it to work (with some modifications) on Windows. If you're running Windows, do note that Matlab has a lot of annoying cross-platform differences, so if your problem is due to e.g. PCs using `\` and Macs using `/`, please try to fix that yourself. Those should be the only differences. [You should also try some of the demos at: http://psychtoolbox.org/]
 
+## PsychoPy version
 
+My old labmate Emma Templeton has written a version of this in PsychoPy! Her github repo can be found [here](https://github.com/emtempleton/ConversationRatings).
 
 ## References and Acknowledgements
 
