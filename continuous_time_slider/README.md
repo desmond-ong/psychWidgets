@@ -2,7 +2,7 @@
 
 This Widget provides a slider that people can modify while watching a video. This allows the participant to rate, for example, how they themselves are feeling on a second-by-second basis, or how a character in a movie is feeling. The slider's value is captured every X seconds, and the data is stored in a vector.
 
-Currently it's a 100 point slider, set to be sampled every 0.5s, and you get to watch Cookie Monster play bowling.
+In the demo below, it's a 100 point slider, set to be sampled every 0.5s. Click on the demo to watch Cookie Monster play bowling!
 
 Demo: http://rawgit.com/desmond-ong/psychWidgets/master/continuous_time_slider/index.html
 
