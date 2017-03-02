@@ -1,7 +1,7 @@
 # Instructions for setting up empathic accuracy slider in Qualtrics.
 
 ## Written by Desmond C. Ong, github.com/desmond-ong
-#### last updated November 2016
+#### last updated March 2017
 
 Demo: https://stanforduniversity.qualtrics.com/SE/?SID=SV_2nq4tQBeLrejhDD
 
@@ -243,16 +243,12 @@ Qualtrics.SurveyEngine.addOnload(function()
 
 #### 3. Adding HTML
 
-Finally, within the question, click "HTML view", and add the following HTML:
+Finally, within the question, click "HTML view", and add the following HTML to 1) import Raphael.js, which is needed to draw the slider, 2) define the video container, and 3) to define the slider container. Be sure to change the video height/width to match your video dimensions.
 
 This is the part that most often screws up, because you may accidentally remove the HTML code while editing the question! Be sure to double check this!
 
 ```
-<script src="https://rawgit.com/desmond-ong/common/master/js/jquery.min.js" type="text/javascript"></script> 
 <script src="https://rawgit.com/desmond-ong/common/master/js/raphael.js" type="text/javascript"></script> 
-<script>
-var $j = jQuery.noConflict();
-</script>
 <center>
 <video height="432" id="videoElement" preload="" width="576"></video>
 
@@ -287,6 +283,12 @@ I have my own scripts for my own data, which, if I see enough general-purpose-us
 
 ###### Acknowledgements
 
-Special thanks to Qualtrics support for helping me with a couple of issues, and to my first couple of users who provided feedback: June Gruber, Erika Weisz, Yoni Ashar
+Special thanks to Qualtrics support for helping me with a couple of issues, and to my first couple of users who provided feedback: June Gruber, Erika Weisz, Yoni Ashar, Anat Perry.
+
+If you do use this in a study, drop me an email. Right now, there's no citation needed, but I'll like to know how many people use it (so I can adjust how much effort I put into maintaining this). And what it's being used for!
 
 
+###### Changelog
+
+- Mar 2017: realized that jquery isn't required, and may even contribute to some problems, so removed it from the HTML section.
+- Nov 2016: finally wrote up a nice commented version and made a demo.
