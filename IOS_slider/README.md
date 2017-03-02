@@ -4,7 +4,7 @@ The original Inclusion of Other in Self (IOS; Aron, Aron, & Smollan, 1992) consi
 
 This Widget is a continuous version of the IOS scale. Currently it's a 100 point slider.
 
-![Screenshot](ios_screenshot.png)
+<img src="ios_screenshot.png" width="200">
 
 Demo: http://rawgit.com/desmond-ong/psychWidgets/master/IOS_slider/index.html
 
