@@ -296,5 +296,6 @@ If you do use this in a study, drop me an email. Right now, there's no citation 
 
 ###### Changelog
 
+- Mar 2017: added code to temporarily disable the "next" button in Qualtrics until after the movie is done.
 - Mar 2017: realized that jquery isn't required, and may even contribute to some problems, so removed it from the HTML section.
 - Nov 2016: finally wrote up a nice commented version and made a demo.
