@@ -114,6 +114,10 @@ Qualtrics.SurveyEngine.addOnload(function()
   var current_valence_vector = [];
   var current_time_vector = [];
   
+  // disables the next button on the page
+  var that = this;
+  this.disableNextButton();
+  
   function mySliderFunction(paper, inputX, inputY, pathString, colour, pathWidth) {
     var addLabel = true; // boolean to change if you want the slider to be labeled with the current value.
     
@@ -225,6 +229,8 @@ Qualtrics.SurveyEngine.addOnload(function()
       Qualtrics.SurveyEngine.setEmbeddedData('movie1_time_vector', current_time_vector);
       canvas.text(350, 200, "Ok, you are done with this page.").attr({ "font-size": 24 });
       canvas.text(350, 240, "Please click the blue arrow to proceed!").attr({ "font-size": 24 });
+      // enables the next button on the page
+      that.enableNextButton();
     }, DURATION_OF_VIDEO_IN_MILLISECONDS);
   };
   
