@@ -4,7 +4,7 @@ This sclar (continuous, 100 point) slider was modified by Erin Bennett and Justi
 
 This Widget is a continuous animated slider.
 
-Demo: http://rawgit.com/desmond-ong/psychWidgets/master/scalar_slider_template/index.html
+Demo: https://desmond-ong.github.io/psychWidgets/scalar_slider_template/index.html
 
 Send feedback to desmond (dot) ong (at) stanford (dot) edu. and let me know if you do end up using this widget! 
 
