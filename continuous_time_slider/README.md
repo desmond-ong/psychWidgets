@@ -4,7 +4,7 @@ This Widget provides a slider that people can modify while watching a video. Thi
 
 In the demo below, it's a 100 point slider, set to be sampled every 0.5s. Click on the demo to watch Cookie Monster play bowling!
 
-Demo: http://rawgit.com/desmond-ong/psychWidgets/master/continuous_time_slider/index.html
+Demo: https://desmond-ong.github.io/psychWidgets/continuous_time_slider/index.html
 
 Send feedback to desmond (dot) ong (at) stanford (dot) edu. and let me know if you do end up using this widget! 
 
