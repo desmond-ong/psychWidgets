@@ -6,7 +6,7 @@ This Widget is a continuous version of the IOS scale. Currently it's a 100 point
 
 <img src="ios_screenshot.png" width="200">
 
-Demo: http://rawgit.com/desmond-ong/psychWidgets/master/IOS_slider/index.html
+Demo: https://desmond-ong.github.io/psychWidgets/IOS_slider/index.html
 
 Send feedback to desmond (dot) ong (at) stanford (dot) edu. and let me know if you do end up using this widget! 
 
