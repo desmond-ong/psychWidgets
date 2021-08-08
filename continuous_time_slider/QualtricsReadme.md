@@ -1,7 +1,16 @@
 # Instructions for setting up empathic accuracy slider in Qualtrics.
 
 ## Written by Desmond C. Ong, github.com/desmond-ong
-#### last updated March 2017
+#### last updated Aug 2021
+
+###### Changelog
+
+- Aug 2021: **MAJOR UPDATE** Older versions of this code no longer work as Qualtrics has disabled their Legacy Exporter. The new exporter cannot parse the vector values stored in the Embedded Data fields. A simple hack (special thanks to Ori Fessler and Anat Perry and lab for solving this issue) is to convert the vector to a string before saving it into the Embedded Data field (by using `variable.toString()`). I've edited the code below, but have not yet had a chance to test it. If you have any data that was collected using the old code and you need to retrieve it from Qualtrics, please contact them directly (I know of several labs for which this has happened. You can drop me a line to discuss.)
+- Mar 2017: added code to temporarily disable the "next" button in Qualtrics until after the movie is done.
+- Mar 2017: realized that jquery isn't required, and may even contribute to some problems, so removed it from the HTML section.
+- Nov 2016: finally wrote up a nice commented version and made a demo.
+
+
 
 Demo: https://stanforduniversity.qualtrics.com/SE/?SID=SV_2nq4tQBeLrejhDD
 
@@ -19,7 +28,7 @@ For each video, there are 3 variables stored:
 If you are sampling every 500 milliseconds (the default), in an ideal world, the vector of time values will be e.g. 0, 500, 1000, 1500... But in practice, individual computers will have some lag/latency, and so having a vector of these time values will allow you to interpolate the valence values, and compare ratings across different participants.
 
 
-At a high level, I use Qualtrics' "embedded data", which can be anything (a single number, a string). In this case, I use the embedded data to store a vector. So the slider-values variable will be "['50', '55', '57', '57'...]". where the numbers represent the value of the slider.
+At a high level, I use Qualtrics' "embedded data", which can be anything (a single number, a string). In this case, I use the embedded data to store a <strike>vector</strike> string. So the slider-values variable will be "['50', '55', '57', '57'...]". where the numbers represent the value of the slider.
 
 
 Default values:
@@ -225,8 +234,8 @@ Qualtrics.SurveyEngine.addOnload(function()
     setTimeout(function() {
       clearInterval(myInterval);
       Qualtrics.SurveyEngine.setEmbeddedData('movie1_name', NAME_OF_VIDEO);
-      Qualtrics.SurveyEngine.setEmbeddedData('movie1_valence_vector', current_valence_vector);
-      Qualtrics.SurveyEngine.setEmbeddedData('movie1_time_vector', current_time_vector);
+      Qualtrics.SurveyEngine.setEmbeddedData('movie1_valence_vector', current_valence_vector.toString()); // ADDED AUG 2021: convert vector to string
+      Qualtrics.SurveyEngine.setEmbeddedData('movie1_time_vector', current_time_vector.toString()); // ADDED AUG 2021: convert vector to string
       canvas.text(350, 200, "Ok, you are done with this page.").attr({ "font-size": 24 });
       canvas.text(350, 240, "Please click the blue arrow to proceed!").attr({ "font-size": 24 });
       // enables the next button on the page
@@ -264,20 +273,24 @@ This is the part that most often screws up, because you may accidentally remove 
 
 #### 4. Downloading the data
 
-Once you've pilot tested your script, or ran some participants, and want to download your data, make sure you download it in .csv format. The data are vectors (e.g. "['50', '55', '57', '57'...]"), and I think some data formats might not correctly recognize the vectors.
+Once you've pilot tested your script, or ran some participants, and want to download your data, make sure you download it in .csv format. The data are <strike>vectors</strike> strings (e.g. "['50', '55', '57', '57'...]"). <strike>, and I think some data formats might not correctly recognize the vectors.</strike>
 
+
+- ** NOTE ADDED AUGUST 2021:** I have not used this code with Qualtrics' new data exporter. If you are using the code above after Aug2021 with the `.toString()` call then it should export as a string and have no issues.
+<strike>
 - The data comes out correctly when you export the data, as opposed to viewing it in the data table. 
     - Using the Qualtrics interface, go to: "Data & Analysis", "Export & Import", "Export Data", "Export Data with Legacy Format", then "CSV"
     - You keep the "use legacy View Results format" box checked, in which you'll have 2 header rows. If you uncheck this, you'll have 3 header rows.
     - I do not use the other formats (XML, SPSS, etc) so I don't know whether they'll work. I suspect they should.
+</strike>
 - If you use R, you can can use [this awesome script](https://www.github.com/desmond-ong/QualtricsToR) to help you download it automatically into R via the Qualtrics API.
 - I do know that the "Data Table" view within the Qualtrics interface will *NOT* show the vectors, so it will seem like the data did not get saved properly.
     - In particular, exporting the "Data Table" to .csv will *NOT* work.
 
 
-Now, once you have the vector data, how do you process it? Well, that would depend on how you want to store your data and if you want to do any preprocessing. At the very least, you could:
+Now, once you have the <strike>vector</strike> string data, how do you process it? Well, that would depend on how you want to store your data and if you want to do any preprocessing. At the very least, you could:
 
-1. write a simple (e.g. python) script to read in the vectors and convert it into another format, e.g. a wide format with one file for each video, and time as rows and participants' responses as columns.
+1. write a simple (e.g. python) script to read in the <strike>vectors</strike> strings and convert them into another format, e.g. a wide format with one file for each video, and time as rows and participants' responses as columns.
 2. do some preprocessing: such as standardizing the time interval sampling (some slower computers might have less recorded values for the same length video because of higher latency between the samples). I would suggest some simple interpolation (e.g. using `numpy.interp`).
 
 And then you can proceed to do analyses on the time series data.
@@ -289,13 +302,8 @@ I have my own scripts for my own data, which, if I see enough general-purpose-us
 
 ###### Acknowledgements
 
-Special thanks to Qualtrics support for helping me with a couple of issues, and to my first couple of users who provided feedback: June Gruber, Erika Weisz, Yoni Ashar, Anat Perry.
+Special thanks to Qualtrics support for helping me with a couple of issues, and to my first couple of users who provided feedback: June Gruber, Erika Weisz, Yoni Ashar, Anat Perry (and Ori Fessler and colleagues for finding out the modification for the bugfix dated Aug 2021).
 
 If you do use this in a study, drop me an email. Right now, there's no citation needed, but I'll like to know how many people use it (so I can adjust how much effort I put into maintaining this). And what it's being used for!
 
 
-###### Changelog
-
-- Mar 2017: added code to temporarily disable the "next" button in Qualtrics until after the movie is done.
-- Mar 2017: realized that jquery isn't required, and may even contribute to some problems, so removed it from the HTML section.
-- Nov 2016: finally wrote up a nice commented version and made a demo.
