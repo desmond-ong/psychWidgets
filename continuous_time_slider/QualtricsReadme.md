@@ -277,12 +277,14 @@ Once you've pilot tested your script, or ran some participants, and want to down
 
 
 - ** NOTE ADDED AUGUST 2021:** I have not used this code with Qualtrics' new data exporter. If you are using the code above after Aug2021 with the `.toString()` call then it should export as a string and have no issues.
+
 <strike>
 - The data comes out correctly when you export the data, as opposed to viewing it in the data table. 
     - Using the Qualtrics interface, go to: "Data & Analysis", "Export & Import", "Export Data", "Export Data with Legacy Format", then "CSV"
     - You keep the "use legacy View Results format" box checked, in which you'll have 2 header rows. If you uncheck this, you'll have 3 header rows.
     - I do not use the other formats (XML, SPSS, etc) so I don't know whether they'll work. I suspect they should.
 </strike>
+
 - If you use R, you can can use [this awesome script](https://www.github.com/desmond-ong/QualtricsToR) to help you download it automatically into R via the Qualtrics API.
 - I do know that the "Data Table" view within the Qualtrics interface will *NOT* show the vectors, so it will seem like the data did not get saved properly.
     - In particular, exporting the "Data Table" to .csv will *NOT* work.
